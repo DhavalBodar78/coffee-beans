@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Take a visual journey through our coffee shop gallery. See our cozy atmosphere, beautiful latte art, fresh pastries, and community events at CoffeeBean." />
+  <meta name="keywords" content="coffee shop gallery, latte art, coffee shop photos, coffee shop atmosphere, coffee shop interior" />
+  <meta name="author" content="CoffeeBean" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://coffeebean.com/gallery" />
+  <meta property="og:title" content="Gallery - CoffeeBean" />
+  <meta property="og:description" content="Take a visual journey through our coffee shop gallery. See our cozy atmosphere, beautiful latte art, and community events." />
+  <meta property="og:image" content="https://coffeebean.com/LOGO.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://coffeebean.com/gallery" />
+  <meta property="twitter:title" content="Gallery - CoffeeBean" />
+  <meta property="twitter:description" content="Take a visual journey through our coffee shop gallery. See our cozy atmosphere, beautiful latte art, and community events." />
+  <meta property="twitter:image" content="https://coffeebean.com/LOGO.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="LOGO.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="LOGO.png">
+  
+  <title>Gallery - CoffeeBean</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fef8f2 0%, #f5e6d3 100%);
+      color: #2d1810;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    header {
+      background: rgba(45, 24, 16, 0.95);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #fef8f2;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      font-size: 2rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: #fef8f2;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #d4a574, #b8860b);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #d4a574;
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 4rem;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .page-title h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #2d1810;
+      margin-bottom: 1rem;
+    }
+
+    .page-title p {
+      font-size: 1.2rem;
+      color: #5d4037;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Filter Buttons */
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      background: white;
+      border: 2px solid #d4a574;
+      border-radius: 25px;
+      color: #2d1810;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: linear-gradient(135deg, #d4a574, #b8860b);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 165, 116, 0.3);
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .gallery-item {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(45, 24, 16, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(45, 24, 16, 0.15);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(45, 24, 16, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-image::before {
+      background: rgba(45, 24, 16, 0.1);
+    }
+
+    .gallery-content {
+      padding: 1.5rem;
+    }
+
+    .gallery-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #2d1810;
+    }
+
+    .gallery-content p {
+      color: #5d4037;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .gallery-category {
+      display: inline-block;
+      background: linear-gradient(135deg, #d4a574, #b8860b);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+
+    .lightbox-image {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0.5rem;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 1rem;
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .lightbox-prev {
+      left: -60px;
+    }
+
+    .lightbox-next {
+      right: -60px;
+    }
+
+    /* Featured Section */
+    .featured-section {
+      background: white;
+      padding: 4rem 2rem;
+      border-radius: 20px;
+      text-align: center;
+      margin-bottom: 4rem;
+      box-shadow: 0 10px 30px rgba(45, 24, 16, 0.1);
+    }
+
+    .featured-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #2d1810;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .featured-item {
+      background: linear-gradient(135deg, #fef8f2, #f5e6d3);
+      padding: 2rem;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .featured-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(45, 24, 16, 0.1);
+    }
+
+    .featured-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .featured-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #2d1810;
+    }
+
+    .featured-item p {
+      color: #5d4037;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(45, 24, 16, 0.95);
+      color: #fef8f2;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-contact {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-hours {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav {
+        gap: 1rem;
+      }
+
+      .main-content {
+        padding: 6rem 1rem 2rem;
+      }
+
+      .page-title h1 {
+        font-size: 2rem;
+      }
+
+      .filter-buttons {
+        gap: 0.5rem;
+      }
+
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .featured-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lightbox-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">☕</span>
+        CoffeeBean
+      </a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="menu.html">Menu</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="page-title">
+      <h1>Our Gallery</h1>
+      <p>Take a visual journey through our coffee shop, from our cozy atmosphere to our delicious creations</p>
+    </div>
+
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="atmosphere">Atmosphere</button>
+      <button class="filter-btn" data-filter="coffee">Coffee</button>
+      <button class="filter-btn" data-filter="food">Food</button>
+      <button class="filter-btn" data-filter="events">Events</button>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item" data-category="atmosphere">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Cozy Corner</h3>
+          <p>Our favorite reading nook where customers can relax with a good book and their favorite coffee.</p>
+          <span class="gallery-category">Atmosphere</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="coffee">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Perfect Latte Art</h3>
+          <p>Our baristas create beautiful latte art that's almost too pretty to drink... almost!</p>
+          <span class="gallery-category">Coffee</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="food">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Fresh Pastries</h3>
+          <p>Our daily selection of freshly baked pastries, made with love and the finest ingredients.</p>
+          <span class="gallery-category">Food</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="atmosphere">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Outdoor Seating</h3>
+          <p>Enjoy your coffee al fresco in our beautiful outdoor garden area.</p>
+          <span class="gallery-category">Atmosphere</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="coffee">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Espresso Bar</h3>
+          <p>Watch our expert baristas craft the perfect espresso shot with precision and care.</p>
+          <span class="gallery-category">Coffee</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="events">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Live Music Night</h3>
+          <p>Local musicians perform live every Friday evening, creating the perfect ambiance.</p>
+          <span class="gallery-category">Events</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="food">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Breakfast Spread</h3>
+          <p>Start your day right with our delicious breakfast options and freshly brewed coffee.</p>
+          <span class="gallery-category">Food</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="atmosphere">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Art Wall</h3>
+          <p>Our rotating art gallery featuring works from local artists and coffee enthusiasts.</p>
+          <span class="gallery-category">Atmosphere</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="coffee">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Cold Brew Station</h3>
+          <p>Our signature cold brew, steeped for 18 hours for the perfect smooth taste.</p>
+          <span class="gallery-category">Coffee</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="events">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Coffee Tasting</h3>
+          <p>Join us for our monthly coffee tasting events and discover new flavors.</p>
+          <span class="gallery-category">Events</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="food">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Lunch Specials</h3>
+          <p>Our daily lunch specials featuring fresh, locally-sourced ingredients.</p>
+          <span class="gallery-category">Food</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="atmosphere">
+        <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="gallery-content">
+          <h3>Community Table</h3>
+          <p>Our large community table where strangers become friends over great coffee.</p>
+          <span class="gallery-category">Atmosphere</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="featured-section">
+      <h2>What Makes Us Special</h2>
+      <div class="featured-grid">
+        <div class="featured-item">
+          <span class="featured-icon">🎨</span>
+          <h3>Artistic Atmosphere</h3>
+          <p>Our space is designed to inspire creativity and foster meaningful connections.</p>
+        </div>
+        <div class="featured-item">
+          <span class="featured-icon">🌱</span>
+          <h3>Sustainable Practices</h3>
+          <p>We're committed to eco-friendly practices and supporting ethical coffee farming.</p>
+        </div>
+        <div class="featured-item">
+          <span class="featured-icon">🎵</span>
+          <h3>Live Entertainment</h3>
+          <p>Regular events including live music, poetry readings, and coffee workshops.</p>
+        </div>
+        <div class="featured-item">
+          <span class="featured-icon">🤝</span>
+          <h3>Community Hub</h3>
+          <p>More than just a coffee shop - we're a gathering place for the community.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close">&times;</button>
+      <button class="lightbox-nav lightbox-prev">‹</button>
+      <button class="lightbox-nav lightbox-next">›</button>
+      <div class="lightbox-image"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-contact">Contact us: info@coffeebean.com</div>
+      <div class="footer-hours">Open daily 7:00 AM - 8:00 PM</div>
+    </div>
+  </footer>
+
+  <script>
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // Filter items
+        galleryItems.forEach(item => {
+          const category = item.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            item.style.display = 'block';
+            item.style.animation = 'fadeInUp 0.6s ease-out';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Lightbox functionality
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = document.querySelector('.lightbox-image');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxPrev = document.querySelector('.lightbox-prev');
+    const lightboxNext = document.querySelector('.lightbox-next');
+
+    let currentImageIndex = 0;
+    const images = [
+      { 
+        title: 'Cozy Corner', 
+        description: 'Our favorite reading nook where customers can relax with a good book and their favorite coffee.',
+        url: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Perfect Latte Art', 
+        description: 'Our baristas create beautiful latte art that\'s almost too pretty to drink... almost!',
+        url: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Fresh Pastries', 
+        description: 'Our daily selection of freshly baked pastries, made with love and the finest ingredients.',
+        url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Outdoor Seating', 
+        description: 'Enjoy your coffee al fresco in our beautiful outdoor garden area.',
+        url: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Espresso Bar', 
+        description: 'Watch our expert baristas craft the perfect espresso shot with precision and care.',
+        url: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Live Music Night', 
+        description: 'Local musicians perform live every Friday evening, creating the perfect ambiance.',
+        url: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Breakfast Spread', 
+        description: 'Start your day right with our delicious breakfast options and freshly brewed coffee.',
+        url: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Art Wall', 
+        description: 'Our rotating art gallery featuring works from local artists and coffee enthusiasts.',
+        url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Cold Brew Station', 
+        description: 'Our signature cold brew, steeped for 18 hours for the perfect smooth taste.',
+        url: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Coffee Tasting', 
+        description: 'Join us for our monthly coffee tasting events and discover new flavors.',
+        url: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Lunch Specials', 
+        description: 'Our daily lunch specials featuring fresh, locally-sourced ingredients.',
+        url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      },
+      { 
+        title: 'Community Table', 
+        description: 'Our large community table where strangers become friends over great coffee.',
+        url: 'https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+      }
+    ];
+
+    galleryItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        currentImageIndex = index;
+        openLightbox();
+      });
+    });
+
+    function openLightbox() {
+      const image = images[currentImageIndex];
+      lightboxImage.innerHTML = `
+        <img src="${image.url}" alt="${image.title}" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);">
+        <div style="position: absolute; bottom: -60px; left: 0; right: 0; text-align: center; color: white;">
+          <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">${image.title}</h3>
+          <p style="font-size: 1rem; opacity: 0.9;">${image.description}</p>
+        </div>
+      `;
+      lightbox.classList.add('active');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+    }
+
+    function nextImage() {
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      openLightbox();
+    }
+
+    function prevImage() {
+      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+      openLightbox();
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxNext.addEventListener('click', nextImage);
+    lightboxPrev.addEventListener('click', prevImage);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+      }
+    });
+
+    // Add scroll effect to header
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(45, 24, 16, 0.98)';
+      } else {
+        header.style.background = 'rgba(45, 24, 16, 0.95)';
+      }
+    });
+
+    // Add animation to gallery items on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe gallery items
+    document.querySelectorAll('.gallery-item, .featured-item').forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(30px)';
+      item.style.transition = 'all 0.6s ease';
+      observer.observe(item);
+    });
+  </script>
+</body>
+</html> 

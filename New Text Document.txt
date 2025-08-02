@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoffeeBean</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fef8f2;
+    }
+
+    header {
+      background-color: #5d2b1d;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero h2 {
+      color: #5d2b1d;
+      font-size: 2rem;
+    }
+
+    .hero img {
+      margin-top: 20px;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>☕ CoffeeBean</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="adopt.html">Adopt</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome to CoffeeBean!</h2>
+    <img src="ome.png" alt="A warm cup of coffee on table" />
+  </section>
+</body>
+</html>
